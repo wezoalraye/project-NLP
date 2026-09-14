@@ -144,7 +144,8 @@ def load_rag_pipeline():
         return (
             f"CONTEXT:\n{context}\n\n"
             f"CUSTOMER QUESTION:\n{query}\n\n"
-            f"Answer the customer's question based on the context above."
+            f"Answer the customer's question based on the context above. "
+            f"Reply in the SAME language the customer used in their question."
         )
 
     def answer(query: str) -> str:
