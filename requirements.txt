@@ -8,5 +8,4 @@ transformers
 torch
 groq
 python-dotenv
-tiktoken
 streamlit
