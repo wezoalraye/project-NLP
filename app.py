@@ -90,19 +90,15 @@ def load_language_detection():
 
 
 def load_sentiment_classifier():
-    # Pretrained multilingual sentiment model (covers Arabic, French, English, etc.)
-    # Replaces the English-only fine-tuned DistilBERT, which had no real understanding
-    # of non-Latin-script text (e.g. Arabic) and produced near-random predictions on it.
     sentiment_pipe = hf_pipeline(
         "text-classification",
-        model="cardiffnlp/twitter-xlm-roberta-base-sentiment",
-        tokenizer="cardiffnlp/twitter-xlm-roberta-base-sentiment",
+        model="mwael399/sentiment-model",
+        tokenizer="mwael399/sentiment-model",
     )
-    LABEL_MAP = {"negative": "negative", "neutral": "neutral", "positive": "positive"}
 
     def predict(text: str) -> str:
-        result = sentiment_pipe(text, truncation=True, max_length=128)[0]
-        return LABEL_MAP.get(result["label"].lower(), result["label"].lower())
+        result = sentiment_pipe(text, truncation=True, max_length=64)[0]
+        return result["label"]
 
     return predict
 
