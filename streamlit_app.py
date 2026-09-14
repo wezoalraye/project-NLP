@@ -45,9 +45,8 @@ try:
 except ImportError:
     pass
 
-# -----------------------------------------------------------------------
 # Config
-# -----------------------------------------------------------------------
+
 GROQ_MODEL = "openai/gpt-oss-20b"
 RAG_TOP_K = 3
 INTENT_BUCKETS_REQUIRING_HANDOFF = {"human_handoff"}
@@ -66,9 +65,7 @@ HUMAN_HANDOFF_MESSAGE = (
 )
 
 
-# -----------------------------------------------------------------------
 # Load all 4 modules once, cached across reruns/messages
-# -----------------------------------------------------------------------
 @st.cache_resource(show_spinner="Loading language detection model...")
 def load_language_detection():
     vectorizer = joblib.load("language_detection_vectorizer.joblib")
@@ -147,7 +144,8 @@ def load_rag_pipeline():
         return (
             f"CONTEXT:\n{context}\n\n"
             f"CUSTOMER QUESTION:\n{query}\n\n"
-            f"Answer the customer's question based on the context above."
+            f"Answer the customer's question based on the context above. "
+            f"Reply in the SAME language the customer used in their question."
         )
 
     def answer(query: str) -> str:
