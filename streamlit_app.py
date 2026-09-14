@@ -45,8 +45,9 @@ try:
 except ImportError:
     pass
 
+# -----------------------------------------------------------------------
 # Config
-
+# -----------------------------------------------------------------------
 GROQ_MODEL = "openai/gpt-oss-20b"
 RAG_TOP_K = 3
 INTENT_BUCKETS_REQUIRING_HANDOFF = {"human_handoff"}
@@ -65,7 +66,9 @@ HUMAN_HANDOFF_MESSAGE = (
 )
 
 
+# -----------------------------------------------------------------------
 # Load all 4 modules once, cached across reruns/messages
+# -----------------------------------------------------------------------
 @st.cache_resource(show_spinner="Loading language detection model...")
 def load_language_detection():
     vectorizer = joblib.load("language_detection_vectorizer.joblib")
@@ -88,17 +91,20 @@ def load_language_detection():
 
 @st.cache_resource(show_spinner="Loading sentiment model...")
 def load_sentiment_classifier():
-      sentiment_pipe = hf_pipeline(
+    # Pretrained multilingual sentiment model (covers Arabic, French, English, etc.)
+    # Replaces the English-only fine-tuned DistilBERT, which had no real understanding
+    # of non-Latin-script text (e.g. Arabic) and produced near-random predictions on it.
+    sentiment_pipe = hf_pipeline(
         "text-classification",
         model="cardiffnlp/twitter-xlm-roberta-base-sentiment",
         tokenizer="cardiffnlp/twitter-xlm-roberta-base-sentiment",
     )
     LABEL_MAP = {"negative": "negative", "neutral": "neutral", "positive": "positive"}
- 
+
     def predict(text: str) -> str:
         result = sentiment_pipe(text, truncation=True, max_length=128)[0]
         return LABEL_MAP.get(result["label"].lower(), result["label"].lower())
- 
+
     return predict
 
 
