@@ -6,7 +6,7 @@ A RAG-based customer support chatbot for e-commerce, combining classical NLP,
 fine-tuned/pretrained transformers, and retrieval-augmented generation to understand,
 route, and answer customer messages.
 
-**Live demo:**[ _add your Streamlit Cloud URL here_](https://project-nlp-u5z2macad4fecaoavkogky.streamlit.app/)
+**Live demo:**(https://project-nlp-u5z2macad4fecaoavkogky.streamlit.app/)
 
 ---
 
