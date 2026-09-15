@@ -8,4 +8,6 @@ transformers
 torch
 groq
 python-dotenv
+sentencepiece
+tiktoken
 streamlit
