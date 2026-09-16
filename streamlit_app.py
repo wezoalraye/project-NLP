@@ -203,7 +203,37 @@ def route_message(text: str, detect_language, detect_sentiment, detect_intent_bu
 # -----------------------------------------------------------------------
 # Streamlit UI
 # -----------------------------------------------------------------------
-st.set_page_config(page_title="Customer Support Chatbot", page_icon="🛒")
+st.set_page_config(page_title="Customer Support Chatbot", page_icon="🛒", layout="centered")
+
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+        color: #e2e8f0;
+    }
+    h1, h2, h3 {
+        color: #f8fafc !important;
+    }
+    [data-testid="stCaptionContainer"] {
+        color: #94a3b8 !important;
+    }
+    [data-testid="stChatMessage"] {
+        background-color: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 14px;
+        padding: 0.5rem 0.75rem;
+    }
+    [data-testid="stChatInput"] textarea {
+        background-color: #1e293b !important;
+        color: #e2e8f0 !important;
+        border-radius: 10px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.title("🛒 E-commerce Customer Support Chatbot")
 st.caption("Language detection · Sentiment analysis · Intent routing · RAG-grounded answers")
 
